@@ -35,17 +35,17 @@ var MUIDropFile = function (props) {
     var classes = useStyles();
     var _a = props.fieldProps, fieldProps = _a === void 0 ? {} : _a, _b = props.formikProps, formikProps = _b === void 0 ? {} : _b;
     var accept = fieldProps.accept, onDropFile = fieldProps.onDropFile, _c = fieldProps.multiple, multiple = _c === void 0 ? true : _c, _d = fieldProps.defaultClass, defaultClass = _d === void 0 ? classes.defaultClass : _d, _e = fieldProps.activeClass, activeClass = _e === void 0 ? classes.activeClass : _e, _f = fieldProps.label, label = _f === void 0 ? "Drag and drop a file/files here" : _f, readAs = fieldProps.readAs;
-    var WrapWith = function (input) { return (React.createElement(Box, __assign({}, getRootProps(), { className: clsx(defaultClass, isDragActive ? activeClass : ""), display: "flex", alignItems: "center", justifyContent: "center" }),
+    var wrapWith = function (input) { return (React.createElement(Box, __assign({}, getRootProps(), { className: clsx(defaultClass, isDragActive ? activeClass : ""), display: "flex", alignItems: "center", justifyContent: "center" }),
         React.createElement(Typography, null, label),
         input)); };
     var onDrop = React.useCallback(onDropFile, []);
     var _g = useDropzone({ onDrop: onDrop }), isDragActive = _g.isDragActive, getRootProps = _g.getRootProps;
     return (
     // @ts-ignore
-    React.createElement(MUIFileInput, { fieldProps: __assign(__assign({}, fieldProps), { multiple: multiple, WrapWith: WrapWith, accept: accept, readAs: readAs }), formikProps: formikProps }));
+    React.createElement(MUIFileInput, { fieldProps: __assign(__assign({}, fieldProps), { multiple: multiple, wrapWith: wrapWith, accept: accept, readAs: readAs }), formikProps: formikProps }));
 };
 var useStyles = makeStyles(function () { return createStyles({
-    defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey' },
+    defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey', position: 'relative' },
     activeClass: { backgroundColor: 'transparent' }
 }); });
 

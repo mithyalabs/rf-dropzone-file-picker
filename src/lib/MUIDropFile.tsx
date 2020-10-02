@@ -9,7 +9,7 @@ import { IFieldProps } from 'react-forms'
 import { MUIFileInput } from 'react-forms'
 import { IMUIFileInputProps } from 'react-forms/dist/lib/ml-form-builder/lib/MUIFileInput';
 
-export interface IMUIDropFileProps {
+export interface DropFileFieldProps {
 	onDropFile: (files: any) => void
 	readAs?: keyof Pick<FileReader, 'readAsBinaryString' | 'readAsDataURL'>
 	multiple?: boolean
@@ -22,13 +22,13 @@ export interface IMUIDropFileProps {
 	 */
 	defaultClass?: string
 }
-export interface IProps extends IFieldProps {
-	fieldProps?: IMUIDropFileProps
+export interface DropFileProps extends IFieldProps {
+	fieldProps?: DropFileFieldProps
 }
 
-export const MUIDropFile: React.FC<IProps> = (props: IProps) => {
+export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 	const classes = useStyles()
-	const { fieldProps = {} as IMUIDropFileProps, formikProps = {} as FormikValues } = props
+	const { fieldProps = {} as DropFileFieldProps, formikProps = {} as FormikValues } = props
 	const {
 		accept,
 		onDropFile,

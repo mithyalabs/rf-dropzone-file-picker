@@ -38,7 +38,7 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 		label = "Drag and drop a file/files here",
 		readAs
 	} = fieldProps
-	const WrapWith = (input: JSX.Element) => (
+	const wrapWith = (input: JSX.Element) => (
 		<Box {...getRootProps()} className={clsx(defaultClass, isDragActive ? activeClass : "")}
 			display="flex" alignItems="center" justifyContent="center" >
 			<Typography>{label}</Typography>
@@ -50,11 +50,11 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 	const { isDragActive, getRootProps } = useDropzone({ onDrop })
 	return (
 		// @ts-ignore
-		<MUIFileInput fieldProps={{ ...fieldProps, multiple, WrapWith, accept, readAs } as IMUIFileInputProps} formikProps={formikProps} />
+		<MUIFileInput fieldProps={{ ...fieldProps, multiple, wrapWith, accept, readAs } as IMUIFileInputProps} formikProps={formikProps} />
 	)
 }
 
 const useStyles = makeStyles<Theme>(() => createStyles({
-	defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey' },
+	defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey', position: 'relative' },
 	activeClass: { backgroundColor: 'transparent' }
 }))

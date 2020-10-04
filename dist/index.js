@@ -37,25 +37,40 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
 var MUIDropFile = function (props) {
     var classes = useStyles();
     var _a = props.fieldProps, fieldProps = _a === void 0 ? {} : _a, _b = props.formikProps, formikProps = _b === void 0 ? {} : _b;
-    var accept = fieldProps.accept, onDropFile = fieldProps.onDropFile, _c = fieldProps.multiple, multiple = _c === void 0 ? true : _c, _d = fieldProps.defaultClass, defaultClass = _d === void 0 ? classes.defaultClass : _d, _e = fieldProps.activeClass, activeClass = _e === void 0 ? classes.activeClass : _e, _f = fieldProps.label, label = _f === void 0 ? "Drag and drop a file/files here" : _f, readAs = fieldProps.readAs;
+    var accept = fieldProps.accept, onDropFile = fieldProps.onDropFile, _c = fieldProps.multiple, multiple = _c === void 0 ? true : _c, _d = fieldProps.defaultClass, defaultClass = _d === void 0 ? classes.defaultClass : _d, _e = fieldProps.activeClass, activeClass = _e === void 0 ? classes.activeClass : _e, _f = fieldProps.label, label = _f === void 0 ? "Drag and drop a file/files here" : _f, readAs = fieldProps.readAs, rest = __rest(fieldProps, ["accept", "onDropFile", "multiple", "defaultClass", "activeClass", "label", "readAs"]);
     var wrapWith = function (input) { return (React.createElement(Box, __assign({}, getRootProps(), { className: clsx(defaultClass, isDragActive ? activeClass : ""), display: "flex", alignItems: "center", justifyContent: "center" }),
         React.createElement(core.Typography, null, label),
         input)); };
-    var onDrop = React.useCallback(onDropFile, []);
-    var _g = reactDropzone.useDropzone({ onDrop: onDrop }), isDragActive = _g.isDragActive, getRootProps = _g.getRootProps;
-    return (
-    // @ts-ignore
-    React.createElement(reactForms.MUIFileInput, { fieldProps: __assign(__assign({}, fieldProps), { multiple: multiple, wrapWith: wrapWith, accept: accept, readAs: readAs }), formikProps: formikProps }));
+    var handleDrop = function (files) {
+        reactForms.setValue(files, formikProps, fieldProps);
+        onDropFile === null || onDropFile === void 0 ? void 0 : onDropFile(files);
+    };
+    var onDrop = React.useCallback(handleDrop, []);
+    var _g = reactDropzone.useDropzone({ onDrop: onDrop }), isDragActive = _g.isDragActive, getRootProps = _g.getRootProps, getInputProps = _g.getInputProps;
+    return (React.createElement(React.Fragment, null,
+        React.createElement(reactForms.MUIFileInput, { fieldProps: __assign(__assign({}, rest), { multiple: multiple, wrapWith: wrapWith, accept: accept, readAs: readAs, nativeInputProps: __assign({}, getInputProps()) }), formikProps: formikProps })));
 };
 var useStyles = core.makeStyles(function () { return core.createStyles({
     defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey', position: 'relative' },
     activeClass: { backgroundColor: 'transparent' }
 }); });
 
-reactForms.attachField('dropFile', React.createElement(MUIDropFile, null));
+reactForms.attachField('drop-file', React.createElement(MUIDropFile, null));
 
 var index = './lib';
 

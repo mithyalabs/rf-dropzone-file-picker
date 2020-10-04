@@ -3,4 +3,4 @@ import { attachField } from 'react-forms';
 import { MUIDropFile } from './MUIDropFile';
 export * from './MUIDropFile'
 
-attachField('dropFile', <MUIDropFile />)
+attachField('drop-file', <MUIDropFile />)

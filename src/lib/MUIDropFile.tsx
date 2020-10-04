@@ -2,20 +2,18 @@ import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box/Box';
 import clsx from 'clsx';
 import { FormikValues } from 'formik';
-import _ from 'lodash';
 import React from 'react';
 import { useDropzone } from 'react-dropzone'
-import { IFieldProps } from 'react-forms'
-import { MUIFileInput } from 'react-forms'
-import { IMUIFileInputProps } from 'react-forms/dist/lib/ml-form-builder/lib/MUIFileInput';
+import { IFieldProps, IMUIFileInputProps, MUIFileInput, ReadAsType, setValue } from 'react-forms'
+
 
 export interface DropFileFieldProps {
-	onDropFile: (files: any) => void
-	readAs?: keyof Pick<FileReader, 'readAsBinaryString' | 'readAsDataURL'>
+	onDropFile: (files: File[]) => void
 	multiple?: boolean
 	activeClass?: string
 	label?: string | JSX.Element
-	accept?: string
+	accept?: string, 
+	readAs: ReadAsType
 	/* 
 	Active class contain rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc.,
 	defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
@@ -36,7 +34,7 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 		defaultClass = classes.defaultClass,
 		activeClass = classes.activeClass,
 		label = "Drag and drop a file/files here",
-		readAs
+		readAs, ...rest
 	} = fieldProps
 	const wrapWith = (input: JSX.Element) => (
 		<Box {...getRootProps()} className={clsx(defaultClass, isDragActive ? activeClass : "")}
@@ -45,12 +43,17 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 			{input}
 		</Box>
 	)
+	const handleDrop = (files: File[]) => {
+		setValue(files, formikProps, fieldProps);
+		onDropFile?.(files)
+	}
+	const onDrop = React.useCallback(handleDrop, [])
+	const { isDragActive, getRootProps, getInputProps } = useDropzone({ onDrop })
 
-	const onDrop = React.useCallback(onDropFile, [])
-	const { isDragActive, getRootProps } = useDropzone({ onDrop })
-	return (
-		// @ts-ignore
-		<MUIFileInput fieldProps={{ ...fieldProps, multiple, wrapWith, accept, readAs } as IMUIFileInputProps} formikProps={formikProps} />
+	return (<>
+		<MUIFileInput fieldProps={{ ...rest, multiple, wrapWith, accept, readAs, nativeInputProps: { ...getInputProps() } } as IMUIFileInputProps} formikProps={formikProps} />
+
+	</>
 	)
 }
 

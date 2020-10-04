@@ -1,12 +1,12 @@
 import React from 'react';
 import { IFieldProps, ReadAsType } from 'react-forms';
 export interface DropFileFieldProps {
-    onDropFile: (files: File[]) => void;
+    onDropFile?: (files: File[]) => void;
     multiple?: boolean;
     activeClass?: string;
     label?: string | JSX.Element;
     accept?: string;
-    readAs: ReadAsType;
+    readAs?: ReadAsType;
     defaultClass?: string;
 }
 export interface DropFileProps extends IFieldProps {

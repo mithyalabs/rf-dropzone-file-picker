@@ -8,14 +8,14 @@ import { IFieldProps, IMUIFileInputProps, MUIFileInput, ReadAsType, setValue } f
 
 
 export interface DropFileFieldProps {
-	onDropFile: (files: File[]) => void
+	onDropFile?: (files: File[]) => void
 	multiple?: boolean
 	activeClass?: string
 	label?: string | JSX.Element
 	accept?: string, 
-	readAs: ReadAsType
+	readAs?: ReadAsType
 	/* 
-	Active class contain rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc.,
+	Active class contains rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc.,
 	defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
 	 */
 	defaultClass?: string
@@ -52,7 +52,6 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 
 	return (<>
 		<MUIFileInput fieldProps={{ ...rest, multiple, wrapWith, accept, readAs, nativeInputProps: { ...getInputProps() } } as IMUIFileInputProps} formikProps={formikProps} />
-
 	</>
 	)
 }

@@ -65,7 +65,9 @@ fieldProps has the following type:
 
 * You can customise the look of the dropzone using activeClass and defaultClass props. Active class contains rules that will take effect on dragging a file over the area. Eg.: backgroundColor, textColor, etc., while defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
 
-* fullWidth sets the width to 100%. Default is 400px.
+* If there are common rules in both classes, CSS specificity will take over and the class defined later will take effect.
+
+fullWidth sets the width to 100% (only when no defaultClass is provided)
 
 * The renderAccepted function should take an array of files and display them within a container anyway you choose.
 * By default only the file names are displayed with a dashed border and in a container with minWidth 200 on the right side of the dropzone.

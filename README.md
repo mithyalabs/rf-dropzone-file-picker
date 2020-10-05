@@ -1,14 +1,40 @@
+**Table of Contents**
+
+- [rf-dropzone-file-picker](#rf-dropzone-file-picker)
+	- [Dependencies](#dependencies)
+	- [Installation](#installation)
+	- [How to use](#how-to-use)
+
 # rf-dropzone-file-picker
+
 A package that runs on top of [react-forms](https://github.com/mithyalabs/ml-react-forms) and provides a drag and drop file input.
-## Dependencies:
+
+## Dependencies
+
 1. react-dropzone
 2. react-forms
 3. clsx
 4. lodash
 5. formik
-## How to use:
-In your config, add the following to get the basic dropzone file input:
+
+## Installation
+
+``` 
+npm i https://github.com/mithyalabs/rf-dropzone-file-picker 
 ```
+
+**dependencies installation** 
+
+``` 
+npm i https://github.com/mithyalabs/react-forms 
+npm i react-dropzone clsx lodash formik
+```
+
+## How to use
+
+In your config, add the following to get the basic dropzone file input:
+
+``` 
 {
 	type: 'drop-file',
 	valueKey: 'myValueKey',
@@ -16,19 +42,30 @@ In your config, add the following to get the basic dropzone file input:
 }
 
 ```
+
 fieldProps has the following type:
-```
+
+``` 
 {
-	onDropFile?: (files: File[]) => void
-	/* onDropFile is triggered soon after a file is dropped in the dropzone and has been added to the form */
+	onDropFile?: (imgFiles: TFile[], remFiles?: File[]) => void
+	loadFile?: (files: File[]) => Promise<File[]>
+	readAs?: ReadAsType
 	multiple?: boolean
 	label?: string | JSX.Element
-	accept?: string, 
-	readAs?: ReadAsType
+	accept?: string
+	encoding?: string
 	activeClass?: string
 	defaultClass?: string
 	fullWidth?: boolean
+	renderAccepted?: (files: File[]) => JSX.Element
 }
 ```
-You can customise the look of the dropzone using activeClass and defaultClass props. Active class contains rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc., while defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
-fullWidth sets the width to 100%. Default is 400px.
+
+**Notes:**
+
+* You can customise the look of the dropzone using activeClass and defaultClass props. Active class contains rules that will take effect on dragging a file over the area. Eg.: backgroundColor, textColor, etc., while defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
+
+* fullWidth sets the width to 100%. Default is 400px.
+
+* The renderAccepted function should take an array of files and display them within a container anyway you choose.
+* By default only the file names are displayed with a dashed border and in a container with minWidth 200 on the right side of the dropzone.

@@ -32,4 +32,4 @@ fieldProps has the following type:
 ```
 You can customise the look of the dropzone using activeClass and defaultClass props. Active class contains rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc., while defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
 If there are common rules in both classes, CSS specificity will take over and the class defined later will take effect.
-fullWidth sets the width to 100%. Default is 400px.
+fullWidth sets the width to 100% (only when no defaultClass is provided). Default is 400px.

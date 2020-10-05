@@ -8,6 +8,7 @@ export interface DropFileFieldProps {
     accept?: string;
     readAs?: ReadAsType;
     defaultClass?: string;
+    fullWidth?: boolean;
 }
 export interface DropFileProps extends IFieldProps {
     fieldProps?: DropFileFieldProps;

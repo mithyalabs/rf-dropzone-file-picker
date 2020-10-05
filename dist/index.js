@@ -50,8 +50,8 @@ function __rest(s, e) {
 }
 
 var MUIDropFile = function (props) {
-    var classes = useStyles();
     var _a = props.fieldProps, fieldProps = _a === void 0 ? {} : _a, _b = props.formikProps, formikProps = _b === void 0 ? {} : _b;
+    var classes = useStyles(fieldProps);
     var accept = fieldProps.accept, onDropFile = fieldProps.onDropFile, _c = fieldProps.multiple, multiple = _c === void 0 ? true : _c, _d = fieldProps.defaultClass, defaultClass = _d === void 0 ? classes.defaultClass : _d, _e = fieldProps.activeClass, activeClass = _e === void 0 ? classes.activeClass : _e, _f = fieldProps.label, label = _f === void 0 ? "Drag and drop a file/files here" : _f, readAs = fieldProps.readAs, rest = __rest(fieldProps, ["accept", "onDropFile", "multiple", "defaultClass", "activeClass", "label", "readAs"]);
     var wrapWith = function (input) { return (React.createElement(Box, __assign({}, getRootProps(), { className: clsx(defaultClass, isDragActive ? activeClass : ""), display: "flex", alignItems: "center", justifyContent: "center" }),
         React.createElement(core.Typography, null, label),
@@ -65,10 +65,19 @@ var MUIDropFile = function (props) {
     return (React.createElement(React.Fragment, null,
         React.createElement(reactForms.MUIFileInput, { fieldProps: __assign(__assign({}, rest), { multiple: multiple, wrapWith: wrapWith, accept: accept, readAs: readAs, nativeInputProps: __assign({}, getInputProps()) }), formikProps: formikProps })));
 };
-var useStyles = core.makeStyles(function () { return core.createStyles({
-    defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey', position: 'relative' },
-    activeClass: { backgroundColor: 'transparent' }
-}); });
+var useStyles = core.makeStyles(function (theme) {
+    return (core.createStyles({
+        defaultClass: {
+            border: '1px dashed grey', borderRadius: 8, minWidth: 400, height: 300, background: 'lightgrey', position: 'relative',
+            margin: theme.spacing(2),
+            width: function (_a) {
+                var fullWidth = _a.fullWidth;
+                return fullWidth ? '100%' : 400;
+            }
+        },
+        activeClass: { backgroundColor: 'transparent' }
+    }));
+});
 
 reactForms.attachField('drop-file', React.createElement(MUIDropFile, null));
 

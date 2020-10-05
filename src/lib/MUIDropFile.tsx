@@ -12,21 +12,22 @@ export interface DropFileFieldProps {
 	multiple?: boolean
 	activeClass?: string
 	label?: string | JSX.Element
-	accept?: string, 
+	accept?: string,
 	readAs?: ReadAsType
 	/* 
 	Active class contains rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc.,
 	defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
 	 */
 	defaultClass?: string
+	fullWidth?: boolean
 }
 export interface DropFileProps extends IFieldProps {
 	fieldProps?: DropFileFieldProps
 }
 
 export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
-	const classes = useStyles()
 	const { fieldProps = {} as DropFileFieldProps, formikProps = {} as FormikValues } = props
+	const classes = useStyles(fieldProps)
 	const {
 		accept,
 		onDropFile,
@@ -56,7 +57,13 @@ export const MUIDropFile: React.FC<DropFileProps> = (props: DropFileProps) => {
 	)
 }
 
-const useStyles = makeStyles<Theme>(() => createStyles({
-	defaultClass: { border: '1px dashed grey', borderRadius: 8, width: 900, height: 300, background: 'lightgrey', position: 'relative' },
-	activeClass: { backgroundColor: 'transparent' }
-}))
+const useStyles = makeStyles<Theme, Pick<DropFileFieldProps, 'fullWidth'>>((theme) => {
+	return (createStyles({
+		defaultClass: {
+			border: '1px dashed grey', borderRadius: 8, minWidth: 400, height: 300, background: 'lightgrey', position: 'relative',
+			margin: theme.spacing(2),
+			width: ({ fullWidth }) => fullWidth ? '100%' : 400
+		},
+		activeClass: { backgroundColor: 'transparent' }
+	}))
+})

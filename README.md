@@ -10,23 +10,25 @@ A package that runs on top of [react-forms](https://github.com/mithyalabs/ml-rea
 In your config, add the following to get the basic dropzone file input:
 ```
 {
- type: 'drop-file',
- valueKey: 'myValueKey',
- fieldProps: {}
+	type: 'drop-file',
+	valueKey: 'myValueKey',
+	fieldProps: {}
 }
 
 ```
 fieldProps has the following type:
 ```
 {
-  onDropFile?: (files: File[]) => void
-  /* onDropFile is triggered soon after a file is dropped in the dropzone and has been added to the form */
+	onDropFile?: (files: File[]) => void
+	/* onDropFile is triggered soon after a file is dropped in the dropzone and has been added to the form */
 	multiple?: boolean
 	label?: string | JSX.Element
 	accept?: string, 
 	readAs?: ReadAsType
-  activeClass?: string
+	activeClass?: string
 	defaultClass?: string
+	fullWidth?: boolean
 }
 ```
 You can customise the look of the dropzone using activeClass and defaultClass props. Active class contains rules that will take effect on dragging a file over the area.Eg.: backgroundColor, textColor, etc., while defaultClass is for class with rules that will not be affected by dragging a file over the area. Eg.: height, width, border, borderRadius, etc.
+fullWidth sets the width to 100%. Default is 400px.

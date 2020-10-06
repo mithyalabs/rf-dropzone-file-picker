@@ -1,14 +1,18 @@
 import React from 'react';
-import { IFieldProps, ReadAsType } from 'react-forms';
+import { IFieldProps, TFile, ReadAsType } from 'react-forms';
 export interface DropFileFieldProps {
-    onDropFile?: (files: File[]) => void;
+    onDropFile?: (imgFiles: TFile[], remFiles?: File[]) => void;
+    loadFile?: (files: File[]) => Promise<File[]>;
+    readAs?: ReadAsType;
     multiple?: boolean;
-    activeClass?: string;
     label?: string | JSX.Element;
     accept?: string;
-    readAs?: ReadAsType;
+    encoding?: string;
+    activeClass?: string;
     defaultClass?: string;
     fullWidth?: boolean;
+    acceptedFileArea?: string;
+    renderAccepted?: (files: File[]) => JSX.Element;
 }
 export interface DropFileProps extends IFieldProps {
     fieldProps?: DropFileFieldProps;
